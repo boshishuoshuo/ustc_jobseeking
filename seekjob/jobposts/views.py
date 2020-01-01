@@ -1,13 +1,74 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+#from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from .models import JobPosts
-
-@login_required
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
+#@login_required
 def home(request):
     context = {
         'posts': JobPosts.objects.all()
     }
     return render(request, 'jobposts/home.html', context)
 
+class PostListView(LoginRequiredMixin, ListView):
+    model = JobPosts
+    template_name = 'jobposts/home.html' # <app>/<model>_<viewtype>/html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']
+    paginate_by = 5
+
+class UserPostListView(ListView):
+    model = JobPosts
+    template_name = 'jobposts/user_posts.html' # <app>/<model>_<viewtype>/html
+    context_object_name = 'posts'
+    paginate_by = 2
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return JobPosts.objects.filter(author = user).order_by('-date_posted')
+
+class PostDetailView(DetailView):
+    model = JobPosts
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = JobPosts
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = JobPosts
+    fields = ['title', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = JobPosts
+    success_url = '/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
 def about(request):
     return render(request,'jobposts/about.html', {'title': 'About'})
+
