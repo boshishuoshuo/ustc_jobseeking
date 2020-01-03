@@ -62,10 +62,18 @@
           <div class="content-section">
             <h3>Useful Links</h3>
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Check job posts</li>
-                <li class="list-group-item list-group-item-light">Check referrals</li>
-                <li class="list-group-item list-group-item-light">Check candidates</li>
-                <li class="list-group-item list-group-item-light">Leave a message</li>
+                <li class="list-group-item list-group-item-light">
+                    <a href="{% url 'jobposts-home' %}">Check job posts</a>
+                </li>
+                <li class="list-group-item list-group-item-light">
+                    <a href="{% url 'search_referrals' %}">Search referrals</a>
+                </li>
+                <li class="list-group-item list-group-item-light">
+                    <a href="{% url 'search_candidates' %}">Search candidates</a>
+                </li>
+                <li class="list-group-item list-group-item-light">
+                    <a href="#">Leave a message</a>
+                </li>
               </ul>
             </p>
           </div>

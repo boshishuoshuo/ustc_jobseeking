@@ -1,0 +1,37 @@
+{% extends "jobposts/base.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method = "GET" action="{% url 'search_referrals' %}" value = "{{ request.GET.q }}">
+            <fieldset class="form-group">
+                <legend class="border-bottom mbf-4">Search Referrals</legend>
+                    Search
+                        <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search Referrals"/>
+                        <input type="submit" name="submit" value="Search"/>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
+        {% if submitbutton == 'Search' and request.GET.q != '' %}
+            {% if results %}
+                <h1>
+                    Result for <b>{{request.GET.q}}</b>
+                </h1>
+                <br>
+                {% for result in results %}
+                    <br>
+                    {{ result.user.email }}
+                    <br>
+                    {{ result.resume }}
+                    <br>
+                    {{ result.class_number }}
+                    <br>
+                    {{ result.company }}
+                    <br>
+                {% endfor %}
+            {% else %}
+                No search results for this query
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock content %}

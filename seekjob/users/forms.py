@@ -5,7 +5,14 @@ from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+class ProfileRegisterForm(forms.ModelForm):
     class_number = forms.CharField(max_length=10)
+
     CAREER_PATH_CHOICES = [
         ('IT', 'IT'),
         ('FIN', 'Finance'),
@@ -13,9 +20,11 @@ class UserRegisterForm(UserCreationForm):
         ('ACA', 'Academia'),
         ('OTH', 'Other')
     ]
+
     career_path = forms.ChoiceField(
         choices=CAREER_PATH_CHOICES
     )
+
     company = forms.CharField(
         required=False
     )
@@ -38,19 +47,18 @@ class UserRegisterForm(UserCreationForm):
     )
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2', 'class_number',
-                  'career_path', 'company', 'employment_status', 'start_time']
+        model = Profile
+        fields = ['class_number', 'career_path', 'company', 'employment_status', 'start_time']
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'class_number', 'career_path', 'company', 'employment_status',
-                  'start_time']
+        fields = ['username', 'email']
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'resume']
+        fields = ['image', 'resume', 'class_number', 'career_path', 'company', 'employment_status',
+                  'start_time']

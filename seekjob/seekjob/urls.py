@@ -38,7 +38,9 @@ urlpatterns = [
     path('password-reset-complete/',
          auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
          name="password_reset_complete"),
-    path('', include('jobposts.urls'))
+    path('', include('jobposts.urls')),
+    path('search_referrals/', user_views.search_referrals, name="search_referrals"),
+    path('search_candidates/', user_views.search_candidates, name="search_candidates")
 ]
 
 if settings.DEBUG:
