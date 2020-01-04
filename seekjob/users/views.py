@@ -67,7 +67,7 @@ def search_referrals(request):
                 'submitbutton': submitbutton
             }
 
-            return render(request, 'users/search_referrals.html', context)
+            return render(request, 'users/search_referrals_results.html', context)
 
         else:
             return render(request, 'users/search_referrals.html')
@@ -92,7 +92,7 @@ def search_candidates(request):
                 'submitbutton': submitbutton
             }
 
-            return render(request, 'users/search_candidates.html', context)
+            return render(request, 'users/search_referrals_results.html', context)
 
         else:
             return render(request, 'users/search_candidates.html')

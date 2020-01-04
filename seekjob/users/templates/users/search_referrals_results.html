@@ -1,0 +1,17 @@
+{% extends "jobposts/base.html" %}
+{% block content %}
+    <h1 class="mb-3">Results</h1>
+    {% for result in results %}
+      <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ result.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+                <div class="media-body">{{ result.user.email }}</div>
+                    <a class="mr-2"  href="{{ result.resume.url }}">Resume</a>
+              <small class="text-muted">{{ result.class_number }}</small>
+            </div>
+            <p class="article-content"> {{ result.company }}</p>
+          </div>
+      </article>
+    {% endfor %}
+{% endblock content %}
