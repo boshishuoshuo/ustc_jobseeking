@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'comments.apps.CommentsConfig',
     'users.apps.UsersConfig',
     'jobposts.apps.JobpostsConfig',
     'crispy_forms',

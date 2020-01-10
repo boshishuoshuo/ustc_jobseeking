@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
+from comments import views as comments_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,7 +41,8 @@ urlpatterns = [
          name="password_reset_complete"),
     path('', include('jobposts.urls')),
     path('search_referrals/', user_views.search_referrals, name="search_referrals"),
-    path('search_candidates/', user_views.search_candidates, name="search_candidates")
+    path('search_candidates/', user_views.search_candidates, name="search_candidates"),
+    path('comments/', comments_views.comment.as_view(), name="comment")
 ]
 
 if settings.DEBUG:
