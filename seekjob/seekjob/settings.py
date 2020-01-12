@@ -25,7 +25,7 @@ SECRET_KEY = '29ovloym1_#i5m46poe$wm14z5#jvd+u)=f0t$6hy9n8z8n(b&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['seekjob-dev.yrefw5ckwv.us-east-1.elasticbeanstalk.com']
 
 
 # Application definition
